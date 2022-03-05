@@ -4,6 +4,7 @@ import time
 from tqdm import tqdm
 import csv
 from decimal import Decimal
+import draw_map
 
 import helper
 import saveData
@@ -156,6 +157,11 @@ def process_mountain(mountain, cardinal_direction, save_map=False, blacklist='')
         else:
             finished_trail_list.append(
                 (perimeter, entry[1], entry[2], entry[3], trail, entry[5]))
+
+    svg = draw_map.draw_mountain(finished_trail_list, lift_list, mountain, cardinal_direction)
+    with open('tmp.svg', 'w') as f:
+        f.write(svg)
+    return
 
     mtn_difficulty = saveData.create_map(
         finished_trail_list, lift_list, mountain, cardinal_direction, save_map)
